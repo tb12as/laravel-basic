@@ -4,6 +4,7 @@
 
 @section('content')
     <a class="btn-solid theme-primary my-3" href="{{ route('products.create') }}">Tambah Produk</a>
+    <a class="btn-subtle theme-primary my-3" href="{{ route('products.fetch') }}">Versi Fetch API</a>
     <table class="table table-bordered" border="1" cellpadding="6">
         <thead>
             <tr>
