@@ -32,13 +32,23 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $fields = $request->validate([
+        $request->validate([
             'name' => 'required|max:255',
             'price' => 'required|numeric|min:1',
             'stock' => 'required|numeric|min:1',
         ]);
 
-        Product::create($fields);
+        // $request->nama_field
+        $price = $request->price;
+
+        $ppn = $price * 11/100;
+        $price += $ppn;
+
+        Product::create([
+            'name' => $request->name,
+            'stock' => $request->stock,
+            'price' => $price,
+        ]);
 
         return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan');
     }
@@ -80,6 +90,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        // $product->deleted_at = now();
         $product->delete();
 
         return redirect()->route('products.index')->with('success', 'Produk berhasil dihapus');
